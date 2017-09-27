@@ -33,7 +33,7 @@ echo "Enabeling JMX"
 sudo sed -i -e "s+    LOCAL_JMX=yes+    LOCAL_JMX=no+" /etc/cassandra/cassandra-env.sh
 
 echo "Changing public JMX ip add to $PUBLICIPADDR"
-sudo sed -i -e 's+# JVM_OPTS="$JVM_OPTS -Djava.rmi.server.hostname=<public name>"+JVM_OPTS="$JVM_OPTS -Djava.rmi.server.hostname=$PUBLICIPADDR"+' /etc/cassandra/cassandra-env.sh
+sudo sed -i -e 's+# JVM_OPTS="$JVM_OPTS -Djava.rmi.server.hostname=<public name>"+JVM_OPTS="$JVM_OPTS -Djava.rmi.server.hostname= $PUBLICIPADDR"+' /etc/cassandra/cassandra-env.sh
 
 
 echo "Changing need for jmx authentication to false"
