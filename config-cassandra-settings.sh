@@ -9,7 +9,7 @@ echo "Changing Hints directory"
 sudo mkdir /mnt/disks/ssd/hints/
 sudo chown -R cassandra:cassandra /mnt/disks/ssd/hints/
 
-sudo sed -i -e "s+# hints_directory: /var/lib/cassandra/hints+hints_directory: /mnt/disks/ssd/hints" /etc/cassandra/cassandra.yaml
+sudo sed -i -e "s+# hints_directory: /var/lib/cassandra/hints+hints_directory: /mnt/disks/ssd/hints+" /etc/cassandra/cassandra.yaml
 
 echo "Changing Data directory"
 sudo mkdir /mnt/disks/ssd/data/
@@ -32,12 +32,12 @@ sudo sed -i -e "s+/var/lib/cassandra/saved_caches+/mnt/disks/ssd/saved_caches+" 
 echo "Enabeling JMX"
 sudo sed -i -e "s+    LOCAL_JMX=yes+    LOCAL_JMX=no+" /etc/cassandra/cassandra-env.sh
 
-echo "Changing public JMX ip add to $$PUBLICIPADDR"
-sudo sed -i -e "s+# JVM_OPTS="$JVM_OPTS -Djava.rmi.server.hostname=<public name>"+JVM_OPTS="$JVM_OPTS -Djava.rmi.server.hostname=$PUBLICIPADDR"+" /etc/cassandra/cassandra-env.sh
+echo "Changing public JMX ip add to $PUBLICIPADDR"
+sudo sed -i -e 's+# JVM_OPTS="$JVM_OPTS -Djava.rmi.server.hostname=<public name>"+JVM_OPTS="$JVM_OPTS -Djava.rmi.server.hostname=$PUBLICIPADDR"+' /etc/cassandra/cassandra-env.sh
 
 
 echo "Changing need for jmx authentication to false"
-sudo sed -i -e "s+-Dcom.sun.management.jmxremote.authenticate=true"+-Dcom.sun.management.jmxremote.authenticate=false"+" /etc/cassandra/cassandra-env.sh
+sudo sed -i -e 's+-Dcom.sun.management.jmxremote.authenticate=true"+-Dcom.sun.management.jmxremote.authenticate=false"+' /etc/cassandra/cassandra-env.sh
 
 
 echo "Changing read_request_timeout_in_ms from 5000ms to 20000ms"
